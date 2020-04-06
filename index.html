@@ -27,21 +27,20 @@
     <link rel="stylesheet" href="./Web Bluetooth _ Read Characteristic Value Changed Sample_files/main.css">
     
     
-  </head>
+  <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
+  <script>var __adobewebfontsappname__="dreamweaver"</script>
+  <script src="http://use.edgefonts.net/passion-one:n4:default.js" type="text/javascript"></script>
+
+</head>
 
   <body>
     <img class="pageIcon" src="./Web Bluetooth _ Read Characteristic Value Changed Sample_files/icon.png">
-    <h1>Web Bluetooth / Read Characteristic Value Changed Sample</h1>
-    <p class="availability">
-      Available in <a target="_blank" href="https://www.chromestatus.com/feature/5264933985976320">Chrome 48+</a> |
-      <a target="_blank" href="https://github.com/googlechrome/samples/blob/gh-pages/web-bluetooth/read-characteristic-value-changed.html">View on GitHub</a> |
-      <a href="https://googlechrome.github.io/samples/web-bluetooth/index.html">Browse Samples</a>
-    </p>
-    <p>The <a href="https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web">Web Bluetooth
-  API</a> lets websites discover and communicate with devices over the
-Bluetooth 4 wireless standard using the Generic Attribute Profile (GATT). It is
-currently partially implemented in Android M, Chrome OS, Mac, and Windows 10.</p>
+    <h1>trrrove - find the hidden </h1>
 
+    <p>trrrove is a Service that let's you find a beacon previously hidden by someone</p>
+	<h2>go to the location shown in the map</h2>
+    <img src="./Bilder/location.PNG">
+	<h2>Tap connect when you're near the location</h2>
 <script>
   if('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js');
@@ -90,24 +89,19 @@ currently partially implemented in Android M, Chrome OS, Mac, and Windows 10.</p
 </script>
 
 
-<p>This sample illustrates the use of the Web Bluetooth API to read battery
-level and be notified of changes from a nearby Bluetooth Device advertising
-Battery information with Bluetooth Low Energy. You may want
-to try this demo with the BLE Peripheral
-Simulator App from the <a target="_blank" href="https://play.google.com/store/apps/details?id=io.github.webbluetoothcg.bletestperipheral">Google
-Play Store</a> and check out the <a href="https://googlechrome.github.io/samples/web-bluetooth/read-characteristic-value-changed-async-await.html">Read Characteristic Value Changed
-Sample (Async Await)</a> sample.</p>
 
-<p>Here, we use the <code>characteristicvaluechanged</code> event listener to
-handle reading battery level characteristic value. This event listener will
-optionally handle upcoming notifications as well.</p>
 
-<button id="readBatteryLevel">Read Bluetooth Device's Battery Level</button>
-<button id="startNotifications">Start Notifications</button>
-<button id="stopNotifications" disabled="">Stop Notifications</button>
-<button id="reset">Reset Bluetooth Device</button>
-<button id="LED">LED</button>
-<button id="RING">RING</button>
+<button id="readBatteryLevel">Connect Bluetooth device "Robin"</button>
+	  
+<button id="startNotifications" disabled="">Start Radar</button>
+<h2 id="demo"></h2>
+
+
+
+<!--<button id="stopNotifications" disabled="">Stop Notifications</button>
+<button id="reset">Reset Bluetooth Device</button>-->
+<button id="LED" disabled="">LED</button>
+<button id="RING" disabled="">RING</button>
 
 <script>
   var ChromeSamples = {
@@ -160,20 +154,57 @@ optionally handle upcoming notifications as well.</p>
 <script>var bluetoothDevice;
 var batteryLevelCharacteristic;
 var LEDCharacteristic;
+var int =1;
+	
+function changeTypo() {
+	setInterval(() => {
+		
+	if (int>100){
+		document.querySelector('#LED').disabled = false;
+    	document.querySelector('#RING').disabled = false;
+	}else{
+		document.querySelector('#LED').disabled = true;
+    	document.querySelector('#RING').disabled = true;
+	}
+  		var str = "Hello Stranger!";
+  	if (int< 50){
+        str= "icecold";
+    	var result = str.fontcolor("blue");
+ 
+		
+    }else if (int<60){
+        str= "cold";
+    	var result = str.fontcolor("orange");
 
+		
+    }else if (int<=95){
+        str= "lukewarm";
+    	var result = str.fontcolor("yellow");
+
+		
+    }else if (int>95){
+        str= "hot, ring the bell or flash the light";
+    	var result = str.fontcolor("red");
+
+		
+    }
+  document.getElementById("demo").innerHTML = result;
+}, 1000);	}
 function onReadBatteryLevelButtonClick() {
   return (bluetoothDevice ? Promise.resolve() : requestDevice())
   .then(connectDeviceAndCacheCharacteristics)
   .then(_ => {
     log('Reading Battery Level...');
     return batteryLevelCharacteristic.readValue();
+	
   })
   .catch(error => {
     log('Argh! ' + error);
-  });
+  })
+	
 }
 function onLEDButtonClick() {
-  return (bluetoothDevice ? Promise.resolve() : requestDevice())
+	return (bluetoothDevice ? Promise.resolve() : requestDevice())
   .then(connectDeviceAndCacheCharacteristics2)
   .then(_ => {
     log('Writing Heart Rate Control Point Characteristic...');
@@ -182,6 +213,7 @@ function onLEDButtonClick() {
     let resetEnergyExpended =  Uint8Array.of(1);
     return LEDCharacteristic.writeValue(resetEnergyExpended);
   })
+	
 }
 function onRINGButtonClick() {
   return (bluetoothDevice ? Promise.resolve() : requestDevice())
@@ -257,9 +289,12 @@ function connectDeviceAndCacheCharacteristics2() {
 function handleBatteryLevelChanged(event) {
   let batteryLevel = event.target.value.getUint8(0);
   log('> Battery Level is ' + batteryLevel + '%');
+	int=batteryLevel;
+	changeTypo();
 }
 
 function onStartNotificationsButtonClick() {
+
   log('Starting Battery Level Notifications...');
   batteryLevelCharacteristic.startNotifications()
   .then(_ => {
@@ -270,6 +305,7 @@ function onStartNotificationsButtonClick() {
   .catch(error => {
     log('Argh! ' + error);
   });
+	
 }
 
 function onStopNotificationsButtonClick() {
@@ -314,6 +350,7 @@ function onDisconnected() {
   document.querySelector('#readBatteryLevel').addEventListener('click', function() {
     if (isWebBluetoothEnabled()) {
       onReadBatteryLevelButtonClick();
+	
     }
   });
   document.querySelector('#LED').addEventListener('click', function() {
@@ -326,7 +363,7 @@ function onDisconnected() {
       onRINGButtonClick();
     }
   });
-  document.querySelector('#startNotifications').addEventListener('click', function(event) {
+ document.querySelector('#startNotifications').addEventListener('click', function(event) {
     if (isWebBluetoothEnabled()) {
       onStartNotificationsButtonClick();
     }
