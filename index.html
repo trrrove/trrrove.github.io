@@ -172,14 +172,28 @@ function changeTypo() {
 		document.querySelector('#LED').disabled = true;
     	document.querySelector('#RING').disabled = true;
 	}
-		var str1 = "[";
-		var str2 = "-";
-		str2.repeat(int);
-		var str3 = "]";
-		var str = str1.concat(str2, str3);
-        str= "[""---------------------------------]";
+  		var str = "Hello Stranger!";
+  	if (int< 50){
+        str= "icecold";
+    	var result = str.fontcolor("blue");
+ 
+		
+    }else if (int<60){
+        str= "cold";
+    	var result = str.fontcolor("orange");
+
+		
+    }else if (int<=95){
+        str= "lukewarm";
+    	var result = str.fontcolor("yellow");
+
+		
+    }else if (int>140){
+        str= "[hot, ring the bell or flash the light]";
     	var result = str.fontcolor("red");
 
+		
+    }
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}
 function onReadBatteryLevelButtonClick() {
