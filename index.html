@@ -165,6 +165,7 @@ var int =1;
 
 function hide() {
   document.getElementById("stopNotifications").style.visibility = "hidden";
+  document.getElementById("startNotifications").style.visibility = "hidden";
 }
 function changeTypo() {
 	setInterval(() => {
@@ -201,7 +202,6 @@ function changeTypo() {
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}
 function onReadBatteryLevelButtonClick() {
-	hide();
   return (bluetoothDevice ? Promise.resolve() : requestDevice())
   .then(connectDeviceAndCacheCharacteristics)
   .then(_ => {
@@ -212,6 +212,9 @@ function onReadBatteryLevelButtonClick() {
   .catch(error => {
     log('Argh! ' + error);
   })
+
+	onStartNotificationsButtonClick();
+	hide();
 	
 }
 function onLEDButtonClick() {
