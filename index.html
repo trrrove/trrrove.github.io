@@ -229,7 +229,7 @@ function onRINGButtonClick() {
 function requestDevice() {
   log('Requesting any Bluetooth Device...');
   return navigator.bluetooth.requestDevice({
-      filters: ['battery_service','automation_io'],
+      //filters: ['battery_service','automation_io'],
       acceptAllDevices: true,
       optionalServices: ['battery_service'],
 	  optionalServices: ['automation_io']
