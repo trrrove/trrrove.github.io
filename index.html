@@ -174,22 +174,22 @@ function changeTypo() {
     	document.querySelector('#RING').disabled = true;
 	}
   		var str = "Hello Stranger!";
-  	if (int>40){
+  	if (int<40){
         str= "[ - - - - - -         ] connected";
     	var result = str.fontcolor("blue");
  
 		
-    }else if (int>60){
+    }else if (int<60){
         str= "[ - - - - - -         ] connected";
     	var result = str.fontcolor("orange");
 
 		
-    }else if (int>80){
+    }else if (int<70){
         str= "[ - - - - - - - -     ] connected";
     	var result = str.fontcolor("yellow");
 
 		
-    }else if (int>100){
+    }else if (int>70){
         str= "[ - - - - - - - - - - ] connected";
     	var result = str.fontcolor("red");
 
