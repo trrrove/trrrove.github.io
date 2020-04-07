@@ -162,7 +162,10 @@
 var batteryLevelCharacteristic;
 var LEDCharacteristic;
 var int =1;
-	
+
+function hide() {
+  document.getElementById("stopNotifications").style.visibility = "hidden";
+}
 function changeTypo() {
 	setInterval(() => {
 		
@@ -198,6 +201,7 @@ function changeTypo() {
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}
 function onReadBatteryLevelButtonClick() {
+	hide();
   return (bluetoothDevice ? Promise.resolve() : requestDevice())
   .then(connectDeviceAndCacheCharacteristics)
   .then(_ => {
