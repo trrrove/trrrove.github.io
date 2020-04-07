@@ -231,7 +231,9 @@ function requestDevice() {
   return navigator.bluetooth.requestDevice({
       filters: ['battery_service','automation_io'],
       acceptAllDevices: true,
-      optionalServices: ['battery_service','automation_io']})
+      optionalServices: ['battery_service'],
+	  optionalServices: ['automation_io']
+  })
   .then(device => {
     bluetoothDevice = device;
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
