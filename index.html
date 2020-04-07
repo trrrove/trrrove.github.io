@@ -173,23 +173,23 @@ function changeTypo() {
     	document.querySelector('#RING').disabled = true;
 	}
   		var str = "Hello Stranger!";
-  	if (int< 50){
-        str= "icecold";
+  	if (int>40){
+        str= "[ - - - - - -         ] connected";
     	var result = str.fontcolor("blue");
  
 		
-    }else if (int<60){
-        str= "cold";
+    }else if (int>60){
+        str= "[ - - - - - -         ] connected";
     	var result = str.fontcolor("orange");
 
 		
-    }else if (int<=95){
-        str= "lukewarm";
+    }else if (int>80){
+        str= "[ - - - - - - - -     ] connected";
     	var result = str.fontcolor("yellow");
 
 		
-    }else if (int>95){
-        str= "hot, ring the bell or flash the light";
+    }else if (int>100){
+        str= "[ - - - - - - - - - - ] connected";
     	var result = str.fontcolor("red");
 
 		
