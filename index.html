@@ -170,7 +170,7 @@ function hide() {
 function changeTypo() {
 	setInterval(() => {
 		
-	if (int>100){
+	if (int<5){
 		document.querySelector('#LED').disabled = false;
     	document.querySelector('#RING').disabled = false;
 	}else{
@@ -178,26 +178,41 @@ function changeTypo() {
     	document.querySelector('#RING').disabled = true;
 	}
   		var str = "Hello Stranger!";
-  	if (int<40){
-        str= "[ - - - -             ] connected";
-    	var result = str.fontcolor("blue");
+  	
+		
+	if (int>8){
+        str= "[ - - -               ] connected";
+    	var result = str.fontcolor("red");
  
 		
-    }else if (int<60){
-        str= "[ - - - - - -         ] connected";
+    }else if (int>7){
+        str= "[ - - - -             ] connected";
+    	var result = str.fontcolor("orange");
+		
+	}else if (int>6){
+        str= "[ - - - - -           ] connected";
     	var result = str.fontcolor("orange");
 
+	}else if (int>5){
+        str= "[ - - - - - -         ] connected";
+    	var result = str.fontcolor("orange");
 		
-    }else if (int<70){
-        str= "[ - - - - - - - -     ] connected";
+    }else if (int>4){
+        str= "[ - - - - - - -       ] connected";
     	var result = str.fontcolor("yellow");
 
 		
-    }else if (int>70){
-        str= "[ - - - - - - - - - - ] connected";
+    }else if (int>3){
+        str= "[ - - - - - - - -     ] connected";
     	var result = str.fontcolor("green");
 
-		
+    }else if (int>2){
+        str= "[ - - - - - - - - -   ] connected";
+    	var result = str.fontcolor("green");		
+	
+	}else if (int>0){
+        str= "[ - - - - - - - - - - ] connected";
+    	var result = str.fontcolor("green");	
     }
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}

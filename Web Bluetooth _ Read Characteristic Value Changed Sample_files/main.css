@@ -6,9 +6,9 @@ body {
     font-weight: 400;
 }
 
-@media screen and (min-width: 832px) {
+@media screen and (min-width:832px){
   body {
-    width: 800px;
+    width: 844vmax;
     margin: 0 auto;
   }
 }
