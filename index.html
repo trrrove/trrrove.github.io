@@ -352,6 +352,8 @@ function onStopNotificationsButtonClick() {
 }
 
 function onResetButtonClick() {
+location.reload();
+return true;
   if (batteryLevelCharacteristic) {
     batteryLevelCharacteristic.removeEventListener('characteristicvaluechanged',
         handleBatteryLevelChanged);
