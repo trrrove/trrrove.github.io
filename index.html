@@ -99,7 +99,7 @@
 	  
 <button id="startNotifications" >Start Radar</button>
   <p>&nbsp;</p>
-<h3mono id="demo"></h3mono>
+<h3mono id="demo"></h3mono><h3mono id="distance"></h3mono>
   <p>&nbsp;</p>
 
 <button id="stopNotifications" disabled="">Stop Notifications</button>
@@ -180,40 +180,41 @@ function changeTypo() {
   		var str = "Hello Stranger!";
   	
 		
-	if (int>8){
+	if (int<8){
         str= "[ - - -               ] connected";
     	var result = str.fontcolor("red");
  
 		
-    }else if (int>7){
+    }else if (int<7){
         str= "[ - - - -             ] connected";
     	var result = str.fontcolor("orange");
 		
-	}else if (int>6){
+	}else if (int<6){
         str= "[ - - - - -           ] connected";
     	var result = str.fontcolor("orange");
 
-	}else if (int>5){
+	}else if (int<5){
         str= "[ - - - - - -         ] connected";
     	var result = str.fontcolor("orange");
 		
-    }else if (int>4){
+    }else if (int<4){
         str= "[ - - - - - - -       ] connected";
     	var result = str.fontcolor("yellow");
 
 		
-    }else if (int>3){
+    }else if (int<3){
         str= "[ - - - - - - - -     ] connected";
     	var result = str.fontcolor("green");
 
-    }else if (int>2){
+    }else if (int<2){
         str= "[ - - - - - - - - -   ] connected";
     	var result = str.fontcolor("green");		
 	
-	}else if (int>0){
+	}else if (int==0){
         str= "[ - - - - - - - - - - ] connected";
     	var result = str.fontcolor("green");	
     }
+		        distance= int;
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}
 function onReadBatteryLevelButtonClick() {
