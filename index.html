@@ -223,7 +223,7 @@ function onReadBatteryLevelButtonClick() {
   .then(_ => {
     log('Reading Battery Level...');
     return batteryLevelCharacteristic.readValue();
-	
+	clearInterval(restartvar);
   })
   .catch(error => {
     log('Argh! ' + error);
@@ -371,6 +371,7 @@ function onDisconnected() {
   .catch(error => {
     log('Argh! ' + error);
   });
+	restartvar=setInterval(onReadBatteryLevelButtonClick,2000);
 }
 </script>
     
