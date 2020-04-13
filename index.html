@@ -126,6 +126,7 @@ function requestDevice() {
   });
 }
 
+
 function connectDeviceAndCacheCharacteristics() {
   if (bluetoothDevice.gatt.connected && batteryLevelCharacteristic) {
     return Promise.resolve();
