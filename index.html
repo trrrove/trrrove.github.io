@@ -164,8 +164,8 @@ var LEDCharacteristic;
 var int =1;
 
 function hide() {
-  document.getElementById("stopNotifications").style.visibility = "hidden";
-  document.getElementById("startNotifications").style.visibility = "hidden";
+  //document.getElementById("stopNotifications").style.visibility = "hidden";
+  //document.getElementById("startNotifications").style.visibility = "hidden";
 }
 function changeTypo() {
 	setInterval(() => {
@@ -223,7 +223,7 @@ function onReadBatteryLevelButtonClick() {
   .then(_ => {
     log('Reading Battery Level...');
     return batteryLevelCharacteristic.readValue();
-	clearInterval(restartvar);
+	//clearInterval(restartvar);
   })
   .catch(error => {
     log('Argh! ' + error);
@@ -372,8 +372,8 @@ function onDisconnected() {
   .catch(error => {
     log('Argh! ' + error);
   });
-	restartvar=setInterval(onReadBatteryLevelButtonClick,2000);
-	log('restartvar! ');
+	//restartvar=setInterval(onReadBatteryLevelButtonClick,2000);
+	//log('restartvar! ');
 }
 </script>
     
