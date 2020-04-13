@@ -300,12 +300,13 @@ function onResetButtonClick() {
 }
 
 function onDisconnected() {
+	  bluetoothDevice = null;
   log('> Bluetooth Device disconnected');
-  connectDeviceAndCacheCharacteristics();
+  connectDeviceAndCacheCharacteristics()
   .catch(error => {
     log('Argh! ' + error);
   });
-  bluetoothDevice = null;
+
 }
 </script>
     
