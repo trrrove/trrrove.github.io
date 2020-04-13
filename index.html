@@ -140,11 +140,6 @@ function onDisconnected() {
   connect();
 }
 
-/* Utils */
-
-// This function keeps calling "toTry" until promise resolves or has
-// retried "max" number of times. First retry has a delay of "delay" seconds.
-// "success" is called upon success.
 function exponentialBackoff(max, delay, toTry, success, fail) {
   toTry().then(result => success(result))
   .catch(_ => {
@@ -161,9 +156,15 @@ function exponentialBackoff(max, delay, toTry, success, fail) {
 function time(text) {
   log('[' + new Date().toJSON().substr(11, 8) + '] ' + text);
 }
+		  
 function onResetButtonClick() {
 location.reload();
 }
+
+setTimeout(function(){ 
+document.querySelector('#connectbutton').click();
+}, 2000);
+
 </script>
 
   
