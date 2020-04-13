@@ -218,7 +218,6 @@ function changeTypo() {
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}
 function onReadBatteryLevelButtonClick() {
-	  bluetoothDevice = null;
   return (bluetoothDevice ? Promise.resolve() : requestDevice())
   .then(connectDeviceAndCacheCharacteristics)
   .then(_ => {
@@ -362,7 +361,7 @@ return true;
     batteryLevelCharacteristic = null;
   }
   // Note that it doesn't disconnect device.
-  bluetoothDevice = null;
+ // bluetoothDevice = null;
   log('> Bluetooth Device reset');
 }
 
