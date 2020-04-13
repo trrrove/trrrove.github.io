@@ -48,7 +48,7 @@ limitations under the License.
   <body>
 
 <form>
-  <button>Connect</button>
+  <button>Connect</button><button id="reset">Reload Window</button>
 </form>
 
 <script>
@@ -118,10 +118,12 @@ function onButtonClick() {
   .catch(error => {
     log('Argh! ' + error);
   });
-
+	restartingServices();
 }
 function restartingServices() {
-  log('restartingServices');
+  log('Requesting Bluetooth Device...');
+  navigator.bluetooth.requestDevice(
+    {filters: [{services: ['battery_service']}]})
   .then(device => {
     log('Connecting to GATT Server...');
     return device.gatt.connect();
@@ -155,7 +157,6 @@ function connect() {
     },
     function success() {
       log('> Bluetooth Device connected. Try disconnect it now.');
-	  restartingServices();
     },
     function fail() {
       time('Failed to reconnect.');
@@ -188,8 +189,11 @@ function exponentialBackoff(max, delay, toTry, success, fail) {
 function time(text) {
   log('[' + new Date().toJSON().substr(11, 8) + '] ' + text);
 }
+function onResetButtonClick() {
+location.reload();
+}
 </script>
-    
+
   
 <script>
   document.querySelector('button').addEventListener('click', function(event) {
@@ -199,6 +203,12 @@ function time(text) {
     if (isWebBluetoothEnabled()) {
       ChromeSamples.clearLog();
       onButtonClick();
+    }
+  });
+  document.querySelector('#reset').addEventListener('click', function(event) {
+    if (isWebBluetoothEnabled()) {
+      ChromeSamples.clearLog();
+      onResetButtonClick();
     }
   });
 </script>
