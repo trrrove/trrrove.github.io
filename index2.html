@@ -222,7 +222,7 @@ function onReadBatteryLevelButtonClick() {
   .then(connectDeviceAndCacheCharacteristics)
   .then(_ => {
     log('Reading Battery Level...');
-	onStartNotificationsButtonClick();
+
     return batteryLevelCharacteristic.readValue();
 	//clearInterval(restartvar);
   })
@@ -282,6 +282,7 @@ function connectDeviceAndCacheCharacteristics() {
   .then(server => {
     log('Getting Battery Service...');
     return server.getPrimaryService('battery_service');
+	onStartNotificationsButtonClick();
   })
   .then(service => {
     log('Getting Battery Level Characteristic...');
