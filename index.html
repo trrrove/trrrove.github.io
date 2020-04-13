@@ -125,6 +125,7 @@ function connect() {
     function toTry() {
       time('Connecting to Bluetooth Device... ');
       return bluetoothDevice.gatt.connect();
+	  
     },
     function success() {
       log('> Bluetooth Device connected. Try disconnect it now.');
