@@ -218,6 +218,7 @@ function changeTypo() {
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}
 function onReadBatteryLevelButtonClick() {
+	  bluetoothDevice = null;
   return (bluetoothDevice ? Promise.resolve() : requestDevice())
   .then(connectDeviceAndCacheCharacteristics)
   .then(_ => {
