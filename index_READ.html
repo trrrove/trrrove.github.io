@@ -203,6 +203,7 @@ function changeTypo() {
   document.getElementById("demo").innerHTML = result;
 }, 1000);	}
 function onReadBatteryLevelButtonClick() {
+
   return (bluetoothDevice ? Promise.resolve() : requestDevice())
   .then(connectDeviceAndCacheCharacteristics)
   .then(_ => {
@@ -223,14 +224,13 @@ function requestDevice() {
   .then(device => {
     bluetoothDevice = device;
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-	connectDeviceAndCacheCharacteristics()
+	//connectDeviceAndCacheCharacteristics();
   });
 }
 
 function connectDeviceAndCacheCharacteristics() {
   if (bluetoothDevice.gatt.connected && batteryLevelCharacteristic) {
-    return Promise.resolve();
-  }
+	  return Promise.resolve();}
 
   log('Connecting to GATT Server...');
   return bluetoothDevice.gatt.connect()
@@ -300,12 +300,13 @@ function onResetButtonClick() {
 }
 
 function onDisconnected() {
-  log('> Bluetooth Device disconnected');
-  connectDeviceAndCacheCharacteristics()
+  log('> Bluetooth Device disconnected');	
+  //bluetoothDevice = null;
+  onReadBatteryLevelButtonClick()
   .catch(error => {
     log('Argh! ' + error);
   });
-  bluetoothDevice = null;
+
 }
 </script>
     
