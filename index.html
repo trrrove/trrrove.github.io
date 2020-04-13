@@ -267,6 +267,7 @@ function requestDevice() {
   .then(device => {
     bluetoothDevice = device;
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
+	  log('Added bt Device ');  
   });
 }
 
@@ -361,7 +362,7 @@ return true;
     batteryLevelCharacteristic = null;
   }
   // Note that it doesn't disconnect device.
- // bluetoothDevice = null;
+  //bluetoothDevice = null;
   log('> Bluetooth Device reset');
 }
 
