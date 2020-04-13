@@ -217,11 +217,8 @@ function connect() {
     },
     function success() {
       log('> Bluetooth Device connected. Try disconnect it now.');
-	  setTimeout(function(){ 
-document.querySelector('#readBatteryLevel').click();
-}, 2000);
-	  
-    },
+	  //setTimeout(function(){ document.querySelector('#readBatteryLevel').click();}, 2000);
+	  },
     function fail() {
       time('Failed to reconnect.');
     });
