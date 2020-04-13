@@ -46,74 +46,9 @@ limitations under the License.
   </head>
 
   <body>
-    <img class="pageIcon" src="icon.png">
-    <h1>Web Bluetooth / Automatic Reconnect Sample</h1>
-    <p class="availability">
-      Available in <a target="_blank" href="https://www.chromestatus.com/feature/5264933985976320">Chrome 52+</a> |
-      <a target="_blank" href="https://github.com/googlechrome/samples/blob/gh-pages/web-bluetooth/automatic-reconnect.html">View on GitHub</a> |
-      <a  href="index.html">Browse Samples</a>
-    </p>
-    <p>The <a href="https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web">Web Bluetooth
-  API</a> lets websites discover and communicate with devices over the
-Bluetooth 4 wireless standard using the Generic Attribute Profile (GATT). It is
-currently partially implemented in Android M, Chrome OS, Mac, and Windows 10.</p>
-
-<script>
-  if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
-  }
-</script>
-
-<script>
-  window.addEventListener('DOMContentLoaded', function() {
-    const searchParams = new URL(location).searchParams;
-    const inputs = Array.from(document.querySelectorAll('input[id]'));
-
-    inputs.forEach(input => {
-      if (searchParams.has(input.id)) {
-        if (input.type == 'checkbox') {
-          input.checked = searchParams.get(input.id);
-        } else {
-          input.value = searchParams.get(input.id);
-          input.blur();
-        }
-      }
-      if (input.type == 'checkbox') {
-        input.addEventListener('change', function(event) {
-          const newSearchParams = new URL(location).searchParams;
-          if (event.target.checked) {
-            newSearchParams.set(input.id, event.target.checked);
-          } else {
-            newSearchParams.delete(input.id);
-          }
-          history.replaceState({}, '', Array.from(newSearchParams).length ?
-              location.pathname + '?' + newSearchParams : location.pathname);
-        });
-      } else {
-        input.addEventListener('input', function(event) {
-          const newSearchParams = new URL(location).searchParams;
-          if (event.target.value) {
-            newSearchParams.set(input.id, event.target.value);
-          } else {
-            newSearchParams.delete(input.id);
-          }
-          history.replaceState({}, '', Array.from(newSearchParams).length ?
-              location.pathname + '?' + newSearchParams : location.pathname);
-        });
-      }
-    });
-  });
-</script>
-
-
-<p>This sample illustrates the use of the Web Bluetooth API to reconnect to a
-disconnected Bluetooth device using a simple <a
-href="https://en.wikipedia.org/wiki/Exponential_backoff">exponential backoff
-algorithm</a>. You may want to check out the <a
-href="automatic-reconnect-async-await.html">Automatic Reconnect (Async Await)</a> sample.</p>
 
 <form>
-  <button>Scan</button>
+  <button>Connect</button>
 </form>
 
 <script>
@@ -228,74 +163,6 @@ function time(text) {
 </script>
     
   
-
-  
-    <h3>JavaScript Snippet</h3>
-  
-
-  
-    <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">bluetoothDevice</span><span class="p">;</span>
-
-<span class="kd">function</span> <span class="nx">onButtonClick</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">bluetoothDevice</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Requesting any Bluetooth Device...</span><span class="dl">'</span><span class="p">);</span>
-  <span class="nb">navigator</span><span class="p">.</span><span class="nx">bluetooth</span><span class="p">.</span><span class="nx">requestDevice</span><span class="p">({</span>
-     <span class="c1">// filters: [...] &lt;- Prefer filters to save energy &amp; show relevant devices.</span>
-     <span class="na">acceptAllDevices</span><span class="p">:</span> <span class="kc">true</span><span class="p">})</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">device</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">bluetoothDevice</span> <span class="o">=</span> <span class="nx">device</span><span class="p">;</span>
-    <span class="nx">bluetoothDevice</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">gattserverdisconnected</span><span class="dl">'</span><span class="p">,</span> <span class="nx">onDisconnected</span><span class="p">);</span>
-    <span class="nx">connect</span><span class="p">();</span>
-  <span class="p">})</span>
-  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Argh! </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">error</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">connect</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">exponentialBackoff</span><span class="p">(</span><span class="mi">3</span> <span class="cm">/* max retries */</span><span class="p">,</span> <span class="mi">2</span> <span class="cm">/* seconds delay */</span><span class="p">,</span>
-    <span class="kd">function</span> <span class="nx">toTry</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connecting to Bluetooth Device... </span><span class="dl">'</span><span class="p">);</span>
-      <span class="k">return</span> <span class="nx">bluetoothDevice</span><span class="p">.</span><span class="nx">gatt</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
-    <span class="p">},</span>
-    <span class="kd">function</span> <span class="nx">success</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">&gt; Bluetooth Device connected. Try disconnect it now.</span><span class="dl">'</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="kd">function</span> <span class="nx">fail</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">Failed to reconnect.</span><span class="dl">'</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">onDisconnected</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">&gt; Bluetooth Device disconnected</span><span class="dl">'</span><span class="p">);</span>
-  <span class="nx">connect</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="cm">/* Utils */</span>
-
-<span class="c1">// This function keeps calling "toTry" until promise resolves or has</span>
-<span class="c1">// retried "max" number of times. First retry has a delay of "delay" seconds.</span>
-<span class="c1">// "success" is called upon success.</span>
-<span class="kd">function</span> <span class="nx">exponentialBackoff</span><span class="p">(</span><span class="nx">max</span><span class="p">,</span> <span class="nx">delay</span><span class="p">,</span> <span class="nx">toTry</span><span class="p">,</span> <span class="nx">success</span><span class="p">,</span> <span class="nx">fail</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">toTry</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">success</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
-  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">max</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">fail</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">Retrying in </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">delay</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">s... (</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">max</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> tries left)</span><span class="dl">'</span><span class="p">);</span>
-    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">exponentialBackoff</span><span class="p">(</span><span class="o">--</span><span class="nx">max</span><span class="p">,</span> <span class="nx">delay</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">toTry</span><span class="p">,</span> <span class="nx">success</span><span class="p">,</span> <span class="nx">fail</span><span class="p">);</span>
-    <span class="p">},</span> <span class="nx">delay</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">time</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">[</span><span class="dl">'</span> <span class="o">+</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">toJSON</span><span class="p">().</span><span class="nx">substr</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">] </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">text</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
-  
-
-
-
 <script>
   document.querySelector('button').addEventListener('click', function(event) {
     event.stopPropagation();
