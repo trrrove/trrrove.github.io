@@ -223,7 +223,7 @@ function requestDevice() {
   .then(device => {
     bluetoothDevice = device;
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-	//onReadBatteryLevelButtonClick();
+	connectDeviceAndCacheCharacteristics()
   });
 }
 
