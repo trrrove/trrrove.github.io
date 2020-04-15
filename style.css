@@ -1,0 +1,98 @@
+/* CSS Document */
+:root {
+	--main-pr-color: #26d3d2;
+	--main-bg-color: #272f32;
+	--main-gr-color: #85ff61;
+	--main-bt-color: white;
+	--main-rt-degree: 0deg;
+	--main-ft-family: Bilo;
+	--main-tr-opacity: 0.2;
+	--main-1-opacity: 0.2;
+
+}
+#map {
+  height: 100%;
+}
+.Balken {
+    background-color: var(--main-pr-color);
+    border-color: var(--main-pr-color);
+    border-style: solid;
+}
+.infobox {
+    border: medium solid var(--main-pr-color);
+    font-family: var(--main-ft-family);
+    font-style: medium;
+    font-weight: 600;
+    border-radius: 10px;
+    color: #E4E4E4;
+    margin-top: 3%;
+}
+.BT {
+    margin-bottom: -1%;
+    table-layout: auto;
+    margin-top: 7%;
+}
+.one, .two, .three, .four , .five, .six, .seven, .eight, .nine, .ten{
+    border: thick solid var(--main-bg-color);
+    border-radius: 50px;
+    border-collapse: collapse;
+    filter: blur(1px);
+    
+}
+.one, .two, .three {
+	background-color: #85ff61;
+}
+.four , .five, .six, .seven {
+	background-color: var(--main-pr-color);
+}
+ .eight, .nine, .ten {
+	background-color: #ff3d2e;
+}
+.one{
+	opacity: var(--main-1-opacity);
+}
+
+
+
+.button, .buttonDescriptor {
+    font-family: var(--main-ft-family);
+    text-transform: uppercase;
+	
+    
+}
+
+.buttonDescriptor{
+    color: white;
+    font-size: small;
+    font-weight: lighter;
+    padding-top: 0px;
+    margin-bottom: 7%;
+}
+.button {
+    background-color: var(--main-pr-color); /* Green */
+    color: white;
+    border: none;
+    display: inline-block;
+    font-size: x-large;
+    width: 100%;
+    height: 55px;
+	border-radius: 10px;
+}
+.trendIcon, .bluetoothIcon{
+	transform: rotate(0deg);
+    padding-top: 7px;
+    padding-top: 2px;
+    padding-left: 2px;
+    border-radius: 100px;
+    padding-right: 2px;
+    padding-bottom: 1px;
+}
+.bluetoothIcon {
+    background-color: var(--main-bt-color);
+
+}
+
+.trendIcon {
+	background-color: grey;
+	opacity: var(--main-tr-opacity);
+}
