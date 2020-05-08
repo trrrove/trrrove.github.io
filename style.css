@@ -38,7 +38,7 @@
     border-radius: 50px;
     border-collapse: collapse;
     filter: blur(1px);
-    
+    min-height: 20%;
 }
 .one, .two, .three {
 	background-color: #85ff61;
