@@ -21,9 +21,9 @@ html, body {
 
       }
 .grid-container {
-  display: grid;
-  grid-template-rows: 10vmax 30vmax 20vmax 20vmax 15vmax ;
-  align-content: center;
+    display: grid;
+    grid-template-rows: 10vmax 30vmax 20vmax 5vmax 20vmax 10vmax;
+    align-content: center;
 }
 </style>
 <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
@@ -192,16 +192,20 @@ html, body {
 		<table width="100%" border="0">
 			<tr>
 			  <th scope="col" class="infobox">Go to the Location on the map. <br>
-				Once there activate Bluetooth <br>
+				Once there press "Connect" <br>
 				to locate the device </th>
+				
 			</tr>
 			</table>
 		</div>
 		<div>
+		
+		<button id="btID" type="button" onClick="makeBTgreen()" class="bluetoothIcon">CONNECT </button>
+		</div>
+		<div>
 			<table width="100%" border="0" class="BT">
-			<tr>
-			  <th width="10" height="0" align="left" valign="middle" scope="col"><button id="btID" type="button" onClick="makeBTgreen()" class="bluetoothIcon"><img src="pictures/bluetooth.svg" alt="" width="120" height="120"></button> </th>
-			  <th class="nine" scope="col">&nbsp;</th>
+				<tr>
+			  <th width="10%" height="100%" align="left" valign="middle" class="nine" scope="col">&nbsp;</th>
 			  <th scope="col" class="eight"><br>
 				&nbsp;</th>
 			  <th scope="col" class="seven"><br>
@@ -212,14 +216,14 @@ html, body {
 			  <th class="three" scope="col">&nbsp;</th>
 			  <th class="two" scope="col">&nbsp;</th>
 			  <th class="one" scope="col">&nbsp;</th>
-			<th width="10" align="right" class="svgitem" scope="col"><img src="pictures/send.svg" alt="" width="60" height="60" class="trendIcon"/> </th>
+			<th width="10" align="right" class="svgitem" scope="col"><img src="pictures/send.svg" alt="" height="32" class="trendIcon"/> </th>
 			  </tr>
 	
 		</table>
 		<table width="100%" border="0" class="buttonDescriptor">
 		  <tbody>
 			<tr>
-			  <th width="60" align="center" scope="col">&nbsp;Connected</th>
+			  <th align="center" scope="col">&nbsp;NOT Connected</th>
 			  <th scope="col">&nbsp;&lt; 8m</th>
 			  <th scope="col">&nbsp;6m</th>
 			  <th scope="col">&nbsp;3m</th>
